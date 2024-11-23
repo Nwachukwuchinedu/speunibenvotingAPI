@@ -235,3 +235,98 @@ export const getCurrentUser = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Generate a reset token
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h", // Token expires in 1 hour
+    });
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+
+    // Send reset email
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Reset Your Password",
+      html: `
+        <div style="font-family: Arial, sans-serif; text-align: center;">
+          <h1>Password Reset Request</h1>
+          <p>Click the link below to reset your password. This link will expire in 1 hour.</p>
+          <a href="${resetLink}" style="
+            display: inline-block;
+            background-color: #1c80df;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+          ">Reset Password</a>
+          <p>If you did not request this, please ignore this email.</p>
+        </div>
+      `,
+    });
+
+    res
+      .status(200)
+      .json({ message: "Password reset link sent to your email." });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const { token } = req.query;
+  const { newPassword } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: "Token is required." });
+  }
+
+  if (!newPassword || newPassword.length < 6) {
+    return res
+      .status(400)
+      .json({
+        message: "New password is required and must be at least 6 characters.",
+      });
+  }
+
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find the user by ID
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successful." });
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(400).json({ message: "Reset token has expired." });
+    }
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
