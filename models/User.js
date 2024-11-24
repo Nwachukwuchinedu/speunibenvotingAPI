@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     level: { type: Number, required: true },
     password: { type: String, required: true },
     verified: { type: Boolean, default: false },
+    voted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
