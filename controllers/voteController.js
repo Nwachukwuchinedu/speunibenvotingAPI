@@ -1,6 +1,9 @@
 import Position from "../models/Position.js";
 import Vote from "../models/Vote.js";
 import User from "../models/User.js";
+import fs from "fs";
+
+import multer from "multer";
 
 export const position = async (req, res) => {
   const { name, candidates } = req.body;
@@ -12,9 +15,12 @@ export const position = async (req, res) => {
     if (existingPosition) {
       // Merge new candidates with existing candidates
       const existingCandidateIds = existingPosition.candidates.map((c) => c.id);
-      const newCandidates = candidates.filter(
-        (candidate) => !existingCandidateIds.includes(candidate.id)
-      );
+      const newCandidates = JSON.parse(candidates)
+        .map((candidate) => ({
+          ...candidate,
+          picture: req.file?.path || null, // Assign picture path if uploaded
+        }))
+        .filter((candidate) => !existingCandidateIds.includes(candidate.id));
 
       existingPosition.candidates.push(...newCandidates);
 
@@ -23,13 +29,64 @@ export const position = async (req, res) => {
     }
 
     // Create a new position if it doesn't exist
-    const newPosition = new Position({ name, candidates });
+    const newCandidates = JSON.parse(candidates).map((candidate) => ({
+      ...candidate,
+      picture: req.file?.path || null, // Assign picture path if uploaded
+    }));
+
+    const newPosition = new Position({ name, candidates: newCandidates });
     await newPosition.save();
     res.status(201).send("Position added successfully.");
   } catch (error) {
     res.status(400).send("Error adding position: " + error.message);
   }
 };
+
+
+
+// Controller to update a specific candidate
+export const updateCandidate = async (req, res) => {
+  const { id } = req.params; // Position ID
+  const { candidateId, name } = req.body; // Candidate details
+  const file = req.file; // Uploaded picture
+
+  try {
+    // Find the position by ID
+    const position = await Position.findById(id);
+    if (!position) {
+      return res.status(404).json({ message: "Position not found." });
+    }
+
+    // Find the candidate within the candidates array
+    const candidate = position.candidates.find((c) => c.id === candidateId);
+    if (!candidate) {
+      return res.status(404).json({ message: "Candidate not found." });
+    }
+
+    // Update candidate details
+    if (name) candidate.name = name;
+    if (file) {
+      // Delete the old picture if it exists
+      if (candidate.picture && fs.existsSync(candidate.picture)) {
+        fs.unlinkSync(candidate.picture);
+      }
+      // Update the picture path
+      candidate.picture = file.path;
+    }
+
+    // Save the updated position document
+    await position.save();
+    res
+      .status(200)
+      .json({ message: "Candidate updated successfully.", position });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error updating candidate: " + error.message });
+  }
+};
+
+
 
 export const getPostions = async (req, res) => {
   try {
