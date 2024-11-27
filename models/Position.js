@@ -6,10 +6,11 @@ const PositionSchema = new mongoose.Schema({
     {
       id: { type: String, required: true },
       name: { type: String, required: true },
+      picture: { type: String }, 
     },
   ],
 });
 
 const Position = mongoose.model("Position", PositionSchema);
 
-export default Position
+export default Position;
