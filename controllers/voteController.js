@@ -42,8 +42,6 @@ export const position = async (req, res) => {
   }
 };
 
-
-
 // Controller to update a specific candidate
 export const updateCandidate = async (req, res) => {
   const { id } = req.params; // Position ID
@@ -86,7 +84,76 @@ export const updateCandidate = async (req, res) => {
   }
 };
 
+// Controller to delete a specific candidate
+export const deleteCandidate = async (req, res) => {
+  const { id } = req.params; // Position ID
+  const { candidateId } = req.body; // Candidate ID to delete
 
+  try {
+    // Find the position
+    const position = await Position.findById(id);
+    if (!position) {
+      return res.status(404).json({ message: "Position not found." });
+    }
+
+    // Find the candidate within the candidates array
+    const candidateIndex = position.candidates.findIndex(
+      (c) => c.id === candidateId
+    );
+    if (candidateIndex === -1) {
+      return res.status(404).json({ message: "Candidate not found." });
+    }
+
+    // Remove the candidate's picture from the filesystem if it exists
+    const candidate = position.candidates[candidateIndex];
+    if (candidate.picture && fs.existsSync(candidate.picture)) {
+      fs.unlinkSync(candidate.picture);
+    }
+
+    // Remove the candidate from the array
+    position.candidates.splice(candidateIndex, 1);
+
+    // Save the updated position
+    await position.save();
+    res
+      .status(200)
+      .json({ message: "Candidate deleted successfully.", position });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error deleting candidate: " + error.message });
+  }
+};
+
+// Controller to get all positions
+export const deletePosition = async (req, res) => {
+  const { id } = req.params; // Position ID
+
+  try {
+    // Find the position
+    const position = await Position.findById(id);
+    if (!position) {
+      return res.status(404).json({ message: "Position not found." });
+    }
+
+    // Delete candidate pictures from the filesystem
+    for (const candidate of position.candidates) {
+      if (candidate.picture && fs.existsSync(candidate.picture)) {
+        fs.unlinkSync(candidate.picture);
+      }
+    }
+
+    // Delete the position
+    await Position.findByIdAndDelete(id);
+    res
+      .status(200)
+      .json({ message: "Position and its candidates deleted successfully." });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Error deleting position: " + error.message });
+  }
+};
 
 export const getPostions = async (req, res) => {
   try {

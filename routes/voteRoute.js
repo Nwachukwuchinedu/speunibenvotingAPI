@@ -5,6 +5,8 @@ import {
   vote,
   result,
   updateCandidate,
+  deleteCandidate,
+  deletePosition,
 } from "../controllers/voteController.js";
 import upload from "../config/multerConfig.js";
 
@@ -20,5 +22,7 @@ router.put(
   upload.single("picture"),
   updateCandidate
 );
+router.delete("/position/:id/candidate/delete", deleteCandidate);
+router.delete("/position/:id/delete", deletePosition);
 
 export default router;
