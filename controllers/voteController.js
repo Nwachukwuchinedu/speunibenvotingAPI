@@ -185,7 +185,8 @@ export const vote = async (req, res) => {
     const validVotes = votes.every((vote) => {
       const position = allPositions.find((p) => p.name === vote.position);
       return (
-        position && position.candidates.some((c) => c.id === vote.candidateId)
+        position &&
+        position.candidates.some((c) => c._id.toString() === vote.candidateId) // Updated to use `_id`
       );
     });
 
@@ -195,19 +196,47 @@ export const vote = async (req, res) => {
 
     // Save votes
     const newVote = new Vote({ voterId, votes });
-    await newVote.save()
+    await newVote.save();
 
-    const user = await User.findOne({matno: voterId});
+    const user = await User.findOne({ matno: voterId });
     user.voted = true;
     await user.save();
     console.log(user);
-    
+
     res.status(201).send("Vote cast successfully");
   } catch (error) {
     console.error("Error casting vote:", error);
     res.status(500).send("Error casting vote: " + error.message);
   }
 };
+
+export const hasUserVoted = async (req, res) => {
+  const { voterId } = req.body; // Extract voterId from the request body
+
+  try {
+    // Check if the voterId exists in the database
+    const voterExists = await Vote.findOne({ voterId });
+
+    if (voterExists) {
+      return res.status(200).json({
+        hasVoted: true,
+        message: "User has already voted.",
+      });
+    }
+
+    return res.status(200).json({
+      hasVoted: false,
+      message: "User has not voted yet.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error checking voting status",
+      error: error.message,
+    });
+  }
+};
+
+
 
 export const result = async (req, res) => {
   try {
@@ -220,7 +249,7 @@ export const result = async (req, res) => {
           v.votes.some(
             (vote) =>
               vote.position === position.name &&
-              vote.candidateId === candidate.id
+              vote.candidateId === candidate._id.toString()
           )
         ).length;
 

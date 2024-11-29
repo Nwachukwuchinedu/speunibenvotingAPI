@@ -7,6 +7,7 @@ import {
   updateCandidate,
   deleteCandidate,
   deletePosition,
+  hasUserVoted,
 } from "../controllers/voteController.js";
 import upload from "../config/multerConfig.js";
 
@@ -16,6 +17,7 @@ const router = express.Router();
 router.post("/position/add", upload.single("picture"), position);
 router.get("/position/all", getPostions);
 router.post("/vote/cast", vote);
+router.post("/vote/has-voted", hasUserVoted);
 router.get("/vote/result", result);
 router.put(
   "/position/:id/candidate/update",
