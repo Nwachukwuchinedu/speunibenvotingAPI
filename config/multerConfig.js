@@ -7,18 +7,20 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the upload directory
-const uploadDir = path.join(__dirname, "../uploads");
+// Define the upload directory inside the frontend project
+const frontendUploadDir = path.join(
+  "C:/Users/Simeon/OneDrive/Documents/coding/speunibenvoting/public/uploads"
+);
 
 // Create the directory if it doesn't exist
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+if (!fs.existsSync(frontendUploadDir)) {
+  fs.mkdirSync(frontendUploadDir, { recursive: true });
 }
 
-
+// Configure Multer for storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Directory for uploaded files
+    cb(null, frontendUploadDir); // Save files in the frontend's uploads directory
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -27,6 +29,7 @@ const storage = multer.diskStorage({
   },
 });
 
+// Filter to allow only image files
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image/")) {
     cb(null, true);
@@ -35,6 +38,25 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+// Initialize Multer
 const upload = multer({ storage, fileFilter });
 
 export default upload;
+
+// Example route to handle file uploads
+export const uploadHandler = async (req, res) => {
+  try {
+    // Save the relative path for the file
+    const relativePath = `/uploads/${req.file.filename}`;
+    const fullUrl = `http://localhost:5173${relativePath}`; // URL to access the file from the frontend
+
+    res.status(200).json({
+      message: "File uploaded successfully.",
+      fileUrl: fullUrl, // URL to access the file from the frontend
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "File upload failed.", error: error.message });
+  }
+};
