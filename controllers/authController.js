@@ -236,8 +236,6 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
-
-
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -297,11 +295,9 @@ export const resetPassword = async (req, res) => {
   }
 
   if (!newPassword || newPassword.length < 6) {
-    return res
-      .status(400)
-      .json({
-        message: "New password is required and must be at least 6 characters.",
-      });
+    return res.status(400).json({
+      message: "New password is required and must be at least 6 characters.",
+    });
   }
 
   try {
@@ -330,3 +326,108 @@ export const resetPassword = async (req, res) => {
   }
 };
 
+export const sendVerificationEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Validate input
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    // Find the user in the database by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate a JWT token for verification
+    const verificationToken = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" } // Token expires in 1 day
+    );
+
+    // Construct verification link
+    const verificationLink = `http://localhost:5173/verify-email?token=${verificationToken}`;
+
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "Gmail", // You can use other services like Outlook, Yahoo, etc.
+      auth: {
+        user: "chinedusimeon2020@gmail.com", // Your Gmail address
+        pass: "miseopnfheyyjapz", // Your email password or app password
+      },
+    });
+
+    // Send the email
+    await transporter.sendMail({
+      from: "chinedusimeon2020@gmail.com",
+      to: email,
+      subject: "Verify Your Account",
+      html: `
+      <div style="
+        font-family: 'Montserrat', sans-serif; 
+        background-color: #f9f9f9; 
+        padding: 20px; 
+        text-align: center; 
+        color: #333;">
+        <div style="
+          max-width: 600px; 
+          margin: auto; 
+          background: white; 
+          border-radius: 10px; 
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+          overflow: hidden;">
+          <div style="padding: 20px 20px 0;">
+            <img src="https://speunibenvoting.vercel.app/assets/spelogo-CmFXs7lC.jpeg" alt="Logo" style="width: 150px; height: auto;" />
+          </div>
+          <div style="
+            background: #1c80df; 
+            color: white; 
+            padding: 15px 20px;">
+            <h1 style="margin: 0; font-size: 24px; font-family: 'Montserrat', sans-serif;">Welcome to SPE UNIBEN ELECTION!</h1>
+          </div>
+          <div style="padding: 20px;">
+            <p style="font-size: 16px; margin-bottom: 20px; color: #333; font-family: 'Montserrat', sans-serif;">
+              Hello ${email.split("@")[0]},<br/><br/>
+              We're excited to have you join our community. Please verify your email to get started and enjoy all the benefits of our platform.
+            </p>
+            <a href="${verificationLink}" style="
+              display: inline-block; 
+              text-decoration: none; 
+              background-color: #1c80df; 
+              color: white; 
+              padding: 12px 25px; 
+              font-size: 16px; 
+              border-radius: 5px; 
+              box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); 
+              font-family: 'Montserrat', sans-serif;">
+              Verify My Account
+            </a>
+          </div>
+          <div style="
+            background: #f1f1f1; 
+            color: #777; 
+            font-size: 12px; 
+            padding: 10px 20px;">
+            <p style="margin: 0; font-family: 'Montserrat', sans-serif;">
+              Need help? Check out our <a href="https://help.yourplatform.com" style="color: #1c80df; text-decoration: none;">Help Center</a> or contact support.
+            </p>
+            <p style="margin-top: 5px; font-family: 'Montserrat', sans-serif;">&copy; 2024 [Your Platform Name]. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    `,
+    });
+
+    res.status(200).json({ message: "Verification email sent successfully!" });
+  } catch (error) {
+    console.error("Error sending verification email:", error);
+    res.status(500).json({
+      message: "Failed to send verification email",
+      error: error.message,
+    });
+  }
+};
