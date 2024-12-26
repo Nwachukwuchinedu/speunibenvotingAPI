@@ -431,3 +431,23 @@ export const sendVerificationEmail = async (req, res) => {
     });
   }
 };
+
+
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select(
+      "-password -createdAt -updatedAt -verified"
+    );
+
+    res.status(200).json(users);
+  } catch (error) {
+    // Handle errors
+    console.error("Error fetching users:", error);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching users",
+      error: error.message,
+    });
+  }
+};
