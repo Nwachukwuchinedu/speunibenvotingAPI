@@ -9,6 +9,7 @@ import {
   forgotPassword,
   resetPassword,
   sendVerificationEmail,
+  getAllUsers
 } from "../controllers/authController.js";
 
 const router = express.Router();
@@ -41,5 +42,6 @@ router.get("/verify-account", verifyAccount);
 router.post("/verify-email", sendVerificationEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
+router.get("/all-users", getAllUsers);
 
 export default router;
