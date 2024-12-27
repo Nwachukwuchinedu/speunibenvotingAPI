@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve static files from the "uploads" directory
-app.use("/uploads", express.static("uploads"));
+// Serve static files from the "uploads" directory  
+app.use("/upload", express.static("upload"));
 
 const connection = mongoose.connect(process.env.MONGODB_URI);
 
