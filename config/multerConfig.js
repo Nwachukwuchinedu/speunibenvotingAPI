@@ -7,20 +7,18 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the upload directory inside the frontend project
-const frontendUploadDir = path.join(
-  "C:/Users/Simeon/OneDrive/Documents/coding/speunibenvoting/public/uploads"
-);
+// Define the upload directory inside the backend project
+const backendUploadDir = "../upload";
 
 // Create the directory if it doesn't exist
-if (!fs.existsSync(frontendUploadDir)) {
-  fs.mkdirSync(frontendUploadDir, { recursive: true });
+if (!fs.existsSync(backendUploadDir)) {
+  fs.mkdirSync(backendUploadDir, { recursive: true });
 }
 
 // Configure Multer for storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, frontendUploadDir); // Save files in the frontend's uploads directory
+    cb(null, "./upload"); // Save files in the backend's upload directory
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
