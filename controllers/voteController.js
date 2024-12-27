@@ -1,6 +1,7 @@
 import Position from "../models/Position.js";
 import Vote from "../models/Vote.js";
 import User from "../models/User.js";
+import autoCommitAndPush from "../utils/gitAutoPush.js";
 import fs from "fs";
 
 import multer from "multer";
@@ -24,6 +25,7 @@ export const position = async (req, res) => {
 
       existingPosition.candidates.push(...newCandidates);
 
+      autoCommitAndPush(req.file?.path); // Commit and push the file to GitHub
       await existingPosition.save();
       return res.status(200).send("Candidates added to existing position.");
     }
