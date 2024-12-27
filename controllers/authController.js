@@ -127,7 +127,7 @@ export const signup = async (req, res) => {
             <p style="margin: 0; font-family: 'Montserrat',  sans-serif;">
               Need help? Check out our <a href="https://wa.me/+2347039173729" style="color: #1c80df; text-decoration: none;">Help Center</a> or contact support.
             </p>
-            <p style="margin-top: 5px; font-family: 'Montserrat',  sans-serif;">&copy; 2024 [Your Platform Name]. All rights reserved.</p>
+            <p style="margin-top: 5px; font-family: 'Montserrat',  sans-serif;">&copy; 2024 SPE UNIBEN. All rights reserved.</p>
           </div>
         </div>
       </div>
