@@ -20,11 +20,14 @@ router.post("/vote/cast", vote);
 router.post("/vote/has-voted", hasUserVoted);
 router.get("/vote/result", result);
 router.put(
-  "/position/:id/candidate/update",
+  "/position/:positionId/candidate/:candidateId/update",
   upload.single("picture"),
   updateCandidate
 );
-router.delete("/position/:id/candidate/delete", deleteCandidate);
+router.delete(
+  "/position/:positionId/candidate/:candidateId/delete",
+  deleteCandidate
+);
 router.delete("/position/:id/delete", deletePosition);
 
 export default router;
