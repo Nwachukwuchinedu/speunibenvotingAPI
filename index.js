@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 import authRoutes from "./routes/authRoutes.js";
 import voteRoutes from "./routes/voteRoute.js";
 import adminRoutes from "./routes/adminRoute.js";
+import timerRoute from "./routes/timerRoute.js";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ connection.catch((err) => {
 app.use("/api/auth", authRoutes);
 app.use("/api", voteRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/timer", timerRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
