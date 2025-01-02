@@ -15,13 +15,17 @@ export const position = async (req, res) => {
 
     if (existingPosition) {
       // Merge new candidates with existing candidates
-      const existingCandidateIds = existingPosition.candidates.map((c) => c.id);
+      const existingCandidateIds = existingPosition.candidates.map((c) =>
+        c._id.toString()
+      );
+      console.log(existingCandidateIds);
+
       const newCandidates = JSON.parse(candidates)
         .map((candidate) => ({
           ...candidate,
           picture: req.file?.path || null, // Assign picture path if uploaded
         }))
-        .filter((candidate) => !existingCandidateIds.includes(candidate.id));
+        .filter((candidate) => !existingCandidateIds.includes(candidate._id));
 
       existingPosition.candidates.push(...newCandidates);
 
@@ -44,27 +48,29 @@ export const position = async (req, res) => {
   }
 };
 
-// Controller to update a specific candidate
 export const updateCandidate = async (req, res) => {
-  const { id } = req.params; // Position ID
-  const { candidateId, name } = req.body; // Candidate details
+  const { positionId, candidateId } = req.params; // Position and Candidate IDs
+  const { name } = req.body; // Candidate name
   const file = req.file; // Uploaded picture
 
   try {
     // Find the position by ID
-    const position = await Position.findById(id);
+    const position = await Position.findById(positionId);
+
     if (!position) {
       return res.status(404).json({ message: "Position not found." });
     }
 
     // Find the candidate within the candidates array
     const candidate = position.candidates.find((c) => c.id === candidateId);
+
     if (!candidate) {
       return res.status(404).json({ message: "Candidate not found." });
     }
 
     // Update candidate details
     if (name) candidate.name = name;
+
     if (file) {
       // Delete the old picture if it exists
       if (candidate.picture && fs.existsSync(candidate.picture)) {
@@ -76,6 +82,7 @@ export const updateCandidate = async (req, res) => {
 
     // Save the updated position document
     await position.save();
+
     res
       .status(200)
       .json({ message: "Candidate updated successfully.", position });
@@ -88,12 +95,11 @@ export const updateCandidate = async (req, res) => {
 
 // Controller to delete a specific candidate
 export const deleteCandidate = async (req, res) => {
-  const { id } = req.params; // Position ID
-  const { candidateId } = req.body; // Candidate ID to delete
+  const { positionId, candidateId } = req.params; 
 
   try {
     // Find the position
-    const position = await Position.findById(id);
+    const position = await Position.findById(positionId);
     if (!position) {
       return res.status(404).json({ message: "Position not found." });
     }
@@ -237,8 +243,6 @@ export const hasUserVoted = async (req, res) => {
     });
   }
 };
-
-
 
 export const result = async (req, res) => {
   try {
