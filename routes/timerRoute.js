@@ -1,11 +1,16 @@
 import express from "express";
-import { getTimer, setTimer, startTimer, stopTimer } from "../controllers/timerController.js";
+import {
+  setTimer,
+  startElection,
+  stopElection,
+  getTimerStatus,
+} from "../controllers/timerController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/", setTimer);
-router.get("/", getTimer);
-router.post("/start", startTimer);
-router.post("/stop", stopTimer);
+router.post("/set-timer", setTimer);
+router.post("/start-election", startElection);
+router.post("/stop-election", stopElection);
+router.get("/status", getTimerStatus);
 
-export default router
+export default router;

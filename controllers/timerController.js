@@ -1,78 +1,99 @@
 import Timer from "../models/Timer.js";
 
+// Set Timer
 export const setTimer = async (req, res) => {
   const { startTime, endTime } = req.body;
 
   try {
-    const [startHours, startMinutes] = startTime.split(":").map(Number);
-    const [endHours, endMinutes] = endTime.split(":").map(Number);
-
-    const now = new Date();
-    const end = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      endHours,
-      endMinutes
+    // Create or Update Timer
+    const timer = await Timer.findOneAndUpdate(
+      {},
+      { startTime, endTime, isActive: false, isStoppedManually: false },
+      { new: true, upsert: true }
     );
-    const endTimestamp = end.getTime(); // Store countdown end time
 
-    let timer = await Timer.findOne();
-    if (timer) {
-      timer.startTime = startTime;
-      timer.endTime = endTime;
-      timer.isActive = false;
-      timer.endTimestamp = endTimestamp;
-      await timer.save();
-    } else {
-      timer = new Timer({ startTime, endTime, isActive: false, endTimestamp });
-      await timer.save();
-    }
-
-    res.json({ message: "Timer saved successfully", timer });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to save timer" });
+    res.status(200).json({
+      message: "Timer set successfully.",
+      timer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to set timer.",
+      error: error.message,
+    });
   }
 };
 
-export const getTimer = async (req, res) => {
-   try {
-     const timer = await Timer.findOne();
-     res.json(timer || {});
-   } catch (err) {
-     console.error(err);
-     res.status(500).json({ error: "Failed to fetch timer" });
-   }
-};
-
-export const startTimer = async (req, res) => {
+// Start Election
+export const startElection = async (req, res) => {
   try {
     const timer = await Timer.findOne();
-    if (!timer) return res.status(404).json({ error: "Timer not set" });
+    if (!timer) {
+      return res.status(404).json({ message: "Timer not found." });
+    }
+
+    const now = new Date();
+    if (now < timer.startTime) {
+      return res
+        .status(400)
+        .json({ message: "Election start time not reached." });
+    }
 
     timer.isActive = true;
     await timer.save();
 
-    res.json({ message: "Election started", timer });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to start election" });
+    res.status(200).json({
+      message: "Election started successfully.",
+      timer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to start election.",
+      error: error.message,
+    });
   }
 };
 
-export const stopTimer = async (req, res) => {
+// Stop Election
+export const stopElection = async (req, res) => {
   try {
     const timer = await Timer.findOne();
-    if (!timer) return res.status(404).json({ error: "Timer not set" });
+    if (!timer) {
+      return res.status(404).json({ message: "Timer not found." });
+    }
 
     timer.isActive = false;
-    timer.endTimestamp = null;
+    timer.isStoppedManually = true;
     await timer.save();
 
-    res.json({ message: "Election ended", timer });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to end election" });
+    res.status(200).json({
+      message: "Election stopped successfully.",
+      timer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to stop election.",
+      error: error.message,
+    });
+  }
+};
+
+// Get Timer Status
+export const getTimerStatus = async (req, res) => {
+  try {
+    const timer = await Timer.findOne();
+    if (!timer) {
+      return res.status(404).json({ message: "Timer not found." });
+    }
+
+    res.status(200).json({
+      message: "Timer status retrieved successfully.",
+      timer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get timer status.",
+      error: error.message,
+    });
   }
 };

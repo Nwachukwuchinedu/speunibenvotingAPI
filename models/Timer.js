@@ -1,12 +1,22 @@
 import mongoose from "mongoose";
 
-const timerSchema = new mongoose.Schema({
-  startTime: { type: String, required: true },
-  endTime: { type: String, required: true },
-  isActive: { type: Boolean, default: false },
-  endTimestamp: { type: Number }, // UNIX timestamp for countdown end
+const TimerSchema = new mongoose.Schema({
+  startTime: {
+    type: Date,
+    required: true,
+  },
+  endTime: {
+    type: Date,
+    required: true,
+  },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
+  isStoppedManually: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const Timer = mongoose.model("Timer", timerSchema);
-
-export default Timer;
+export default mongoose.model("Timer", TimerSchema);
