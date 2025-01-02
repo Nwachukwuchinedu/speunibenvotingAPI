@@ -4,7 +4,6 @@ const PositionSchema = new mongoose.Schema({
   name: { type: String, required: true },
   candidates: [
     {
-      id: { type: String, required: true },
       name: { type: String, required: true },
       picture: { type: String }, 
     },
