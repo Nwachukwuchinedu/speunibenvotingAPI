@@ -13,9 +13,9 @@ const generateToken = (id) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, matno, level, password } = req.body;
+  const { email, fullname, nickname, matno, level, password } = req.body;
 
-  if (!email || !matno || !level || !password) {
+  if (!email || fullname || nickname || matno || level || password) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -37,6 +37,8 @@ export const signup = async (req, res) => {
 
     const newAdmin = new Admin({
       email,
+      fullname,
+      nickname,
       matno,
       level,
       password: hashedPassword,

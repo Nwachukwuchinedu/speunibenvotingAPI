@@ -28,6 +28,6 @@ router.post("/log-admin-action", logAdminAction);
 router.post("/signup", signup);
 router.post("/login", login);
 router.get("/me",verifyToken, getCurrentAdmin);
-router.put("/update-password", verifyAdmin, updatePassword);
+router.put("/update-password", verifyAdmin  , updatePassword);
 
 export default router;
