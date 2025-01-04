@@ -270,3 +270,94 @@ export const result = async (req, res) => {
     res.status(500).send("Error fetching results: " + error.message);
   }
 };
+
+
+// import PDFDocument from "pdfkit";
+// import { ChartJSNodeCanvas } from "chartjs-node-canvas";
+// import path from "path";
+
+// export const result = async (req, res) => {
+//   try {
+//     const positions = await Position.find();
+//     const votes = await Vote.find();
+
+//     const results = positions.map((position) => {
+//       const counts = position.candidates.map((candidate) => {
+//         const voteCount = votes.filter((v) =>
+//           v.votes.some(
+//             (vote) =>
+//               vote.position === position.name &&
+//               vote.candidateId === candidate._id.toString()
+//           )
+//         ).length;
+
+//         return { candidate: candidate.name, votes: voteCount };
+//       });
+
+//       return { position: position.name, results: counts };
+//     });
+
+//     // Generate the PDF with charts
+//     const pdfPath = path.join("results", `vote_results_${Date.now()}.pdf`);
+//     const doc = new PDFDocument();
+//     const chartCanvas = new ChartJSNodeCanvas({ width: 800, height: 600 });
+
+//     // Add Title
+//     doc.font("Poppins-Bold").fontSize(20).text("Election Results", {
+//       align: "center",
+//     });
+//     doc.moveDown();
+
+//     for (const result of results) {
+//       // Add Position Title
+//       doc.font("Montserrat-Bold").fontSize(16).text(result.position, {
+//         align: "left",
+//       });
+
+//       // Prepare Data for Chart
+//       const labels = result.results.map((r) => r.candidate);
+//       const data = result.results.map((r) => r.votes);
+
+//       const chartConfig = {
+//         type: "bar",
+//         data: {
+//           labels,
+//           datasets: [
+//             {
+//               label: `Votes for ${result.position}`,
+//               data,
+//               backgroundColor: "rgba(75, 192, 192, 0.2)",
+//               borderColor: "rgba(75, 192, 192, 1)",
+//               borderWidth: 1,
+//             },
+//           ],
+//         },
+//         options: {
+//           plugins: {
+//             legend: { display: false },
+//           },
+//         },
+//       };
+
+//       // Generate Chart
+//       const chartImage = await chartCanvas.renderToBuffer(chartConfig);
+
+//       // Save Chart to PDF
+//       const chartPath = path.join("charts", `chart_${result.position}.png`);
+//       fs.writeFileSync(chartPath, chartImage);
+
+//       doc.image(chartPath, { width: 400 }).moveDown();
+
+//       // Clean up chart image
+//       fs.unlinkSync(chartPath);
+//     }
+
+//     // Finalize and Save PDF
+//     doc.pipe(fs.createWriteStream(pdfPath));
+//     doc.end();
+
+//     res.status(200).json({ message: "Results generated and saved to PDF." });
+//   } catch (error) {
+//     res.status(500).send("Error fetching results: " + error.message);
+//   }
+// };
