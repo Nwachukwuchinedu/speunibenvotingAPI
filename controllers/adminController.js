@@ -134,3 +134,34 @@ export const logAdminAction = async (req, res) => {
       .json({ message: "An error occurred while logging the action." });
   }
 };
+
+export const updatePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body; // Get the current password and new password
+
+  if (!currentPassword || !newPassword) {
+    return res
+      .status(400)
+      .json({ message: "Current password and new password are required" });
+  }
+
+  try {
+    // Check if the current password is correct
+    const isMatch = await bcrypt.compare(currentPassword, req.admin.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password in the database
+    req.admin.password = hashedPassword;
+    await req.admin.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error, please try again later" });
+  }
+};
