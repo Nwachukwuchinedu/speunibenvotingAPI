@@ -271,6 +271,27 @@ export const result = async (req, res) => {
   }
 };
 
+export const invalidateVote = async (req, res) => {
+  try {
+    const { voterId } = req.body; // Expect voterId to be passed in the request body
+
+    if (!voterId) {
+      return res.status(400).json({ message: "Voter ID is required" });
+    }
+
+    // Find and delete the voter's record
+    const deletedVote = await Vote.findOneAndDelete({ voterId });
+
+    if (!deletedVote) {
+      return res.status(404).json({ message: "Vote not found or already invalidated" });
+    }
+
+    return res.status(200).json({ message: "Vote invalidated successfully" });
+  } catch (error) {
+    console.error("Error invalidating vote:", error);
+    return res.status(500).json({ message: "An error occurred while invalidating the vote" });
+  }
+};
 
 // import PDFDocument from "pdfkit";
 // import { ChartJSNodeCanvas } from "chartjs-node-canvas";
