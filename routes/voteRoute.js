@@ -9,6 +9,7 @@ import {
   deletePosition,
   hasUserVoted,
   invalidateVote,
+  getAllVotes
 } from "../controllers/voteController.js";
 import upload from "../config/multerConfig.js";
 
@@ -31,4 +32,5 @@ router.delete(
 );
 router.delete("/position/:id/delete", deletePosition);
 router.post("/vote/invalidate", invalidateVote);
+router.get("/vote/all", getAllVotes);
 export default router;

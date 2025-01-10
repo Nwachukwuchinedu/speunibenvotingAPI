@@ -95,7 +95,7 @@ export const updateCandidate = async (req, res) => {
 
 // Controller to delete a specific candidate
 export const deleteCandidate = async (req, res) => {
-  const { positionId, candidateId } = req.params; 
+  const { positionId, candidateId } = req.params;
 
   try {
     // Find the position
@@ -283,13 +283,37 @@ export const invalidateVote = async (req, res) => {
     const deletedVote = await Vote.findOneAndDelete({ voterId });
 
     if (!deletedVote) {
-      return res.status(404).json({ message: "Vote not found or already invalidated" });
+      return res
+        .status(404)
+        .json({ message: "Vote not found or already invalidated" });
     }
 
     return res.status(200).json({ message: "Vote invalidated successfully" });
   } catch (error) {
     console.error("Error invalidating vote:", error);
-    return res.status(500).json({ message: "An error occurred while invalidating the vote" });
+    return res
+      .status(500)
+      .json({ message: "An error occurred while invalidating the vote" });
+  }
+};
+
+export const getAllVotes = async (req, res) => {
+  try {
+    // Fetch all data from the Vote collection
+    const votes = await Vote.find();
+    const voterCount = votes.length;
+
+    // Respond with the fetched data
+    res.status(200).json({ voterCount });
+  } catch (error) {
+    console.error("Error fetching votes:", error);
+
+    // Handle errors
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch votes",
+      error: error.message,
+    });
   }
 };
 
