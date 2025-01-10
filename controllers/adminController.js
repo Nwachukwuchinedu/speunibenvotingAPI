@@ -15,17 +15,17 @@ const generateToken = (id) => {
 export const signup = async (req, res) => {
   const { email, fullname, nickname, matno, level, password } = req.body;
 
-  if (!email || !fullname || !nickname || !matno || !level || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
+  // if (!email || !fullname || !nickname || !matno || !level || !password) {
+  //   return res.status(400).json({ message: "All fields are required" });
+  // }
 
   // Validate matno
-  if (!matno.startsWith("ENG") || matno.length !== 10) {
-    return res.status(400).json({
-      message:
-        "Matriculation number must start with 'ENG' and be 10 characters long",
-    });
-  }
+  // if (!matno.startsWith("ENG") || matno.length !== 10) {
+  //   return res.status(400).json({
+  //     message:
+  //       "Matriculation number must start with 'ENG' and be 10 characters long",
+  //   });
+  // }
 
   try {
     const existingAdmin = await Admin.findOne({ email });
@@ -162,6 +162,16 @@ export const updatePassword = async (req, res) => {
     await req.admin.save();
 
     res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error, please try again later" });
+  }
+};
+
+export const allAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.find();
+    res.status(200).json(admins);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error, please try again later" });

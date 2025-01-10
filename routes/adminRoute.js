@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { getCurrentAdmin, logAdminAction, login, signup, updatePassword } from "../controllers/adminController.js";
+import { getCurrentAdmin, logAdminAction, login, signup, updatePassword, allAdmins } from "../controllers/adminController.js";
 import { verifyAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -29,5 +29,6 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.get("/me",verifyToken, getCurrentAdmin);
 router.put("/update-password", verifyAdmin  , updatePassword);
+router.get("/all", allAdmins);
 
 export default router;
