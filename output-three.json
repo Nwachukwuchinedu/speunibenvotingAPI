@@ -1,0 +1,434 @@
+[
+  {
+    "email": "chiomaobodi2004@gmail.com",
+    "fullname": "Obodi chioma purity ",
+    "matno": "ENG2103258",
+    "level": 400,
+    "password": 5528965,
+    "nickname": "Obodi",
+    "verified": true
+  },
+  {
+    "email": "solomon.ugbogbo@eng.uniben.edu",
+    "fullname": "Ugbogbo Lovely Solomon ",
+    "matno": "ENG2103285 ",
+    "level": 400,
+    "password": 5513265,
+    "nickname": "Ugbogbo",
+    "verified": true
+  },
+  {
+    "email": "arowolob36@gmail.com",
+    "fullname": "Bisola zainab",
+    "matno": "ENG2103235",
+    "level": 400,
+    "password": 5513678,
+    "nickname": "Bisola",
+    "verified": true
+  },
+  {
+    "email": "otaigbejoseph7@gmail.com",
+    "fullname": "OTAIGBE OSALOBOH JOSEPH",
+    "matno": "ENG2209850",
+    "level": 400,
+    "password": 5639479,
+    "nickname": "OTAIGBE",
+    "verified": true
+  },
+  {
+    "email": "AYUBA.aminu@eng.uniben.edu",
+    "fullname": "AMINU AYUBA",
+    "matno": "ENG2106369",
+    "level": 400,
+    "password": 5516862,
+    "nickname": "AMINU",
+    "verified": true
+  },
+  {
+    "email": "ayaosimoses123@gmail.com",
+    "fullname": "Ayaosi Moses Aloye",
+    "matno": "ENG2103237",
+    "level": 400,
+    "password": 5518033,
+    "nickname": "Ayaosi",
+    "verified": true
+  },
+  {
+    "email": "ephraimosemwengie@gmail.com",
+    "fullname": "EPHRAIM EGHOSA OSEMWENGIE",
+    "matno": "ENG2210022",
+    "level": 400,
+    "password": 5829467,
+    "nickname": "EPHRAIM",
+    "verified": true
+  },
+  {
+    "email": "hawley.eweka@eng.uniben.edu",
+    "fullname": "Eweka Hawley ivie ",
+    "matno": "ENG2006107",
+    "level": 400,
+    "password": 5673449,
+    "nickname": "Eweka",
+    "verified": true
+  },
+  {
+    "email": "oliviachuks6@gmail.com",
+    "fullname": "Chukwudi Shedrack Oliseyem ",
+    "matno": "ENG2103269",
+    "level": 400,
+    "password": 5514754,
+    "nickname": "Chukwudi",
+    "verified": true
+  },
+  {
+    "email": "thomasfavour263@gmail.com",
+    "fullname": "Thomas favour Gideon ",
+    "matno": "ENG2103384",
+    "level": 400,
+    "password": 5513445,
+    "nickname": "Thomas",
+    "verified": true
+  },
+  {
+    "email": "david.nwabuebo@eng.uniben.edu",
+    "fullname": "Nwabuebo uchechukwu David ",
+    "matno": "ENG2103253",
+    "level": 400,
+    "password": 5516869,
+    "nickname": "Nwabuebo",
+    "verified": true
+  },
+  {
+    "email": "promise.okhani@eng.uniben.edu",
+    "fullname": "OKHANI OSHIOZUWA PROMISE ",
+    "matno": "ENG2209848",
+    "level": 400,
+    "password": 5682856,
+    "nickname": "OKHANI",
+    "verified": true
+  },
+  {
+    "email": "peace.nwoko@eng.uniben.edu",
+    "fullname": "NWOKO PEACE RITA ",
+    "matno": "ENG2209685",
+    "level": 400,
+    "password": 5639287,
+    "nickname": "NWOKO",
+    "verified": true
+  },
+  {
+    "email": "maryogbomo711@gmail.com",
+    "fullname": "Ogbomo odion mary",
+    "matno": "ENG2103264",
+    "level": 400,
+    "password": 5517443,
+    "nickname": "Ogbomo",
+    "verified": true
+  },
+  {
+    "email": "linsomhi@gmail.com",
+    "fullname": "Alegieuno Apesomhi Lincoln ",
+    "matno": "ENG2209758",
+    "level": 400,
+    "password": 5682784,
+    "nickname": "Alegieuno",
+    "verified": true
+  },
+  {
+    "email": "ellaojogwu123@icloud.com",
+    "fullname": "Ojogwu Uchechukwu Emmanuella ",
+    "matno": "Eng2209908 ",
+    "level": 400,
+    "password": 5640014,
+    "nickname": "Ojogwu",
+    "verified": true
+  },
+  {
+    "email": "owieosayimwense@gmail.com",
+    "fullname": "OWIE PROMISE OSAYIMWENSE ",
+    "matno": "ENG2103280",
+    "level": 400,
+    "password": 5515915,
+    "nickname": "OWIE",
+    "verified": true
+  },
+  {
+    "email": "alarijoshua2018@gmail.com",
+    "fullname": "Alari osasuyi Joshua ",
+    "matno": "ENG2209725",
+    "level": 400,
+    "password": 5682182,
+    "nickname": "Alari",
+    "verified": true
+  },
+  {
+    "email": "Iefffreyuhuokumor@gmail.com ",
+    "fullname": "UJUOKUMOR GANPATEI JEFFREY",
+    "matno": "ENG2209941",
+    "level": 400,
+    "password": 5830287,
+    "nickname": "UJUOKUMOR",
+    "verified": true
+  },
+  {
+    "email": "israelukokobili123@gmail.com",
+    "fullname": "Israel Osekhonlemen Ukokobili ",
+    "matno": "ENG2103286",
+    "level": 400,
+    "password": 5675175,
+    "nickname": "Israel",
+    "verified": true
+  },
+  {
+    "email": "michaelgodsent1234@gmail.com",
+    "fullname": "Onoriode Michael oghenetejiri ",
+    "matno": "ENG2103274",
+    "level": 400,
+    "password": "Yes",
+    "nickname": "Onoriode",
+    "verified": true
+  },
+  {
+    "email": "preciousgab11@gmail.com",
+    "fullname": "GAB-AMEDU PRECIOUS OSHOMOLE ",
+    "matno": "ENG2103243",
+    "level": 400,
+    "password": 5514527,
+    "nickname": "GAB-AMEDU",
+    "verified": true
+  },
+  {
+    "email": "fortunegrt24@gmail.com",
+    "fullname": "Fortune Iretiosa Uwoghiren ",
+    "matno": "Eng2103287",
+    "level": 400,
+    "password": 5513477,
+    "nickname": "Fortune",
+    "verified": true
+  },
+  {
+    "email": "edorodiondestiny41@gmail.com",
+    "fullname": "EDORODION OSAGBEMWONRHUE DESTINY ",
+    "matno": "ENG2103240",
+    "level": 400,
+    "password": 5514886,
+    "nickname": "EDORODION",
+    "verified": true
+  },
+  {
+    "email": "kadirimomoh288@gmail.com",
+    "fullname": "Momoh kadiri ",
+    "matno": "ENG2103250",
+    "level": 400,
+    "password": 5512902,
+    "nickname": "Momoh",
+    "verified": true
+  },
+  {
+    "email": "tobi40025@gmail.com",
+    "fullname": "Obidipe Oluwatobi",
+    "matno": "ENG2103257",
+    "level": 400,
+    "password": 5516205,
+    "nickname": "Obidipe",
+    "verified": true
+  },
+  {
+    "email": "izeiyamupaulo@gmail.com ",
+    "fullname": "PAUL IYEGBEKOSA IZE-IYAMU",
+    "matno": "ENG2103246",
+    "level": 400,
+    "password": 5561946,
+    "nickname": "PAUL",
+    "verified": true
+  },
+  {
+    "email": "alabiv70@gmail.com",
+    "fullname": "Anigilaje Alabi Victor ",
+    "matno": "Eng2103234",
+    "level": 400,
+    "password": 5512897,
+    "nickname": "Anigilaje",
+    "verified": true
+  },
+  {
+    "email": "Patiencetobi08@gmail.com",
+    "fullname": "TOBI DOOLUMUN PATIENCE ",
+    "matno": "Eng2209523",
+    "level": 400,
+    "password": 5639290,
+    "nickname": "TOBI",
+    "verified": true
+  },
+  {
+    "email": "awwalmuhammed882@gmail.com ",
+    "fullname": "Muhammed Awwal Abdullahi ",
+    "matno": "ENG2103229",
+    "level": 400,
+    "password": 5682686,
+    "nickname": "Muhammed",
+    "verified": true
+  },
+  {
+    "email": "ehimenwinner0@gmail.com",
+    "fullname": "Ehimen Winner",
+    "matno": "ENG2103241",
+    "level": 400,
+    "password": 5540506,
+    "nickname": "Ehimen",
+    "verified": true
+  },
+  {
+    "email": "Kelvin.dikedi@eng.uniben.edu",
+    "fullname": "Kelvin Dikedi ",
+    "matno": "ENG2103239",
+    "level": 400,
+    "password": "Yes",
+    "nickname": "Kelvin",
+    "verified": true
+  },
+  {
+    "email": "ogbechierapheal@gmail.com ",
+    "fullname": "Ogbechie Anyibuofu Raphael ",
+    "matno": "ENG2103262",
+    "level": 400,
+    "password": 9,
+    "nickname": "Ogbechie",
+    "verified": true
+  },
+  {
+    "email": "mitchel.agbontaen@eng.uniben.edu",
+    "fullname": "MITCHEL AGBONTAEN AIBUEDEFE",
+    "matno": "ENG2103232",
+    "level": 400,
+    "password": 5516864,
+    "nickname": "MITCHEL",
+    "verified": true
+  },
+  {
+    "email": "westalex602@gmail.com",
+    "fullname": "Mgbecheta okechukwu uchenna ",
+    "matno": "ENG2210021",
+    "level": 400,
+    "password": "Yes",
+    "nickname": "Mgbecheta",
+    "verified": true
+  },
+  {
+    "email": "daflames380@gmail.com",
+    "fullname": "OBAZEE SHEDRACK UHUNOMA ",
+    "matno": "ENG2103256",
+    "level": 400,
+    "password": 5513667,
+    "nickname": "OBAZEE",
+    "verified": true
+  },
+  {
+    "email": "Samuelolutede44@gmail.com",
+    "fullname": "Oluyede Samuel Ayobami",
+    "matno": "ENG2103270",
+    "level": 400,
+    "password": 5516866,
+    "nickname": "Oluyede",
+    "verified": true
+  },
+  {
+    "email": "ogbuodinaka534@gmail.com",
+    "fullname": "OGBU ALEXANDA ODINAKA ",
+    "matno": "ENG2103265",
+    "level": 400,
+    "password": 5682272,
+    "nickname": "OGBU",
+    "verified": true
+  },
+  {
+    "email": "greatnessomogor@gmail.com ",
+    "fullname": "Omogor Greatness",
+    "matno": "ENG2103271",
+    "level": 400,
+    "password": 5516865,
+    "nickname": "Omogor",
+    "verified": true
+  },
+  {
+    "email": "wfavor70@gmail.com",
+    "fullname": "Williams Favour Oshioramhe ",
+    "matno": "ENG2103288",
+    "level": 400,
+    "password": 5513069,
+    "nickname": "Williams",
+    "verified": true
+  },
+  {
+    "email": "osamwonyinosa4@gmail.com",
+    "fullname": "Osamwonyi Nosa David",
+    "matno": "ENG2103277",
+    "level": 400,
+    "password": 5514260,
+    "nickname": "Osamwonyi",
+    "verified": true
+  },
+  {
+    "email": "fredd7614@gmail.com",
+    "fullname": "Etokhana Godspower ",
+    "matno": "ENG2103242",
+    "level": 400,
+    "password": 5516876,
+    "nickname": "Etokhana",
+    "verified": true
+  },
+  {
+    "email": "saheedadebay31@gmail.com",
+    "fullname": "ADEBAYO SAHEED ADEKUNLE ",
+    "matno": "ENG2209878",
+    "level": 400,
+    "password": 5820345,
+    "nickname": "ADEBAYO",
+    "verified": true
+  },
+  {
+    "email": "austineogiesewu@gmail.com",
+    "fullname": "Augustine Emwinloghosa Ogiesewu",
+    "matno": "ENG2103266",
+    "level": 400,
+    "password": 5516870,
+    "nickname": "Augustine",
+    "verified": true
+  },
+  {
+    "email": "omomejijuwon@gmail.com",
+    "fullname": "OMOMEJI JUWON RICHARD ",
+    "matno": "ENG2103272",
+    "level": 400,
+    "password": 5512868,
+    "nickname": "OMOMEJI",
+    "verified": true
+  },
+  {
+    "email": "ojopaul717@gmail.com",
+    "fullname": "Ojo Paul Ayomide ",
+    "matno": "ENG2103056",
+    "level": 400,
+    "password": 5683049,
+    "nickname": "Ojo",
+    "verified": true
+  },
+  {
+    "email": "afonjaemmanuel14@gmail.com",
+    "fullname": "AFONJA EMMANUEL AANUOLUWAPO ",
+    "matno": "ENG2209969",
+    "level": 400,
+    "password": 5673390,
+    "nickname": "AFONJA",
+    "verified": true
+  },
+  {
+    "email": "codiase15@gmail.com",
+    "fullname": "Odiase Olivia Ehimwenma",
+    "matno": "ENG2103259",
+    "level": 400,
+    "password": 5512900,
+    "nickname": "Odiase",
+    "verified": true
+  }
+]

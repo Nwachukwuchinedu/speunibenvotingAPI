@@ -1,0 +1,141 @@
+curl -X PUT "http://localhost:5000/api/position/67716763b93377905e23212c/candidate/67716763b93377905e23212d/update" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=Emmanuel" \
+  -F "picture=@C:/Users/Simeon/OneDrive/Pictures/Screenshot (27).png"
+
+
+###
+curl -X POST "http://localhost:5000/api/position/add" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=President" \
+  -F 'candidates=[{"name":"May"}]' \
+  -F "picture=@C:/Users/Simeon/OneDrive/Pictures/Screenshot (27).png"
+
+###
+curl -X POST "http://localhost:5000/api/position/add" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=Director of Welfare" \
+  -F 'candidates=[{"name":"Eweka Hawley Ivie"}]' \
+  -F "picture=@C:/Users/Simeon/Downloads/IMG-20250109-WA0014.jpg"
+
+###
+curl -X POST http://localhost:5000/api/vote/cast \
+-H "Content-Type: application/json" \
+-d '{
+  "voterId": "12345",
+  "votes": [
+    { "position": "President", "candidateId": "1" },
+    { "position": "Vice President", "candidateId": "4" }
+  ]
+}'
+
+###
+curl -X GET "http://localhost:5000/api/vote/result"
+
+###
+curl -X GET "http://localhost:5000/api/position/all"
+###
+curl -X DELETE "http://localhost:5000/api/position/67716763b93377905e23212c/candidate/67716e0d5a1e7e9fcb256107/delete"
+###
+curl -X DELETE "http://localhost:5000/api/position/674563faf381266c4bf6b4cc/delete"
+
+###
+curl -X POST http://localhost:5000/api/vote/cast \
+-H "Content-Type: application/json" \
+-d '{
+  "voterId": "ENG2006435",
+  "votes": [
+    { "position": "President", "candidateId": "6747a23770aed516c5f62b2c" },
+    { "position": "Vice President", "candidateId": "6747a29770aed516c5f62b38" }
+  ]
+}'
+###
+curl -X POST http://localhost:5000/api/vote/has-voted \
+  -H "Content-Type: application/json" \
+  -d '{
+        "voterId": "ENG20064351"
+      }'
+
+
+curl -X POST http://localhost:5000/api/auth/verify-email \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "chinedu.nwachukwu@eng.uniben.edu"
+}'
+
+###
+curl -X POST http://localhost:5000/api/log-admin-action \
+-H "Content-Type: application/json" \
+-d '{
+  "adminId": "64f65a1b9a1c4b287c8e7e65",
+  "adminEmail": "admin@example.com",
+  "action": "Deleted all users",
+  "details": {
+    "deletedUsers": [
+      { "id": "64f65b1a9a1c4b287c8e7e66", "name": "User 1", "email": "user1@example.com" },
+      { "id": "64f65b2a9a1c4b287c8e7e67", "name": "User 2", "email": "user2@example.com" }
+    ],
+    "reason": "Cleanup of inactive accounts"
+  }
+}'
+
+###
+curl -X POST http://localhost:5000/api/admin/signup \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "chinedusimeon185@gmail.vom",
+  "fullname": "Simeon Nwachukwu",
+  "nickname": "Simeon",
+  "matno": "ENG2006435",
+  "level": "400",
+  "password": "111"
+}'
+
+
+###
+curl -X POST https://speunibenvotingapi.onrender.com/api/admin/login \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "chinedusimeon185@gmail.com",
+  "password": "111"
+}'
+
+
+###
+curl -X GET http://localhost:5000/api/auth/all-users
+
+
+###
+curl -X POST http://localhost:5000/api/admin/signup \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "chinedusimeon185@gmail.vm",
+  "nickname": "Me",
+  "password": "111"
+}'
+
+###
+curl -X GET http://localhost:5000/api/admin/all
+
+curl -X POST http://localhost:5000/api/timer \
+-H "Content-Type: application/json" \
+-d '{"startTime": "15:00", "endTime": "18:00"}'
+
+###
+curl -X PUT http://localhost:5000/api/admin/update-password \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NmVhMGMyYjdlMjhhMWM5YzBmN2ZjYyIsImlhdCI6MTczNTk5NTE2MSwiZXhwIjoxNzM2MDE2NzYxLCJpc3MiOiJzcGV1bmliZW52b3RpbmcifQ.JAvI7FLlY8SEGKCzegMW-6m2tWKD6u-vK0KUHnaoHL4" \
+  -d '{
+        "currentPassword": "yourNewPassword",
+        "newPassword": "111"
+      }'
+MONGODB_URI=mongodb+srv://chinedusimeon2020:YhD4qCOdBH2JDUhC@speunibenvoting.hyxvh.mongodb.net/?retryWrites=true&w=majority&appName=speunibenvoting
+###
+GET  http://localhost:5000/save-json
+###
+POST  http://localhost:5000/generate-passwords
+
+###
+POST  http://localhost:5000/send-passwords
+
+
