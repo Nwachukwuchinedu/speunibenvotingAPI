@@ -1,7 +1,7 @@
-curl -X PUT "http://localhost:5000/api/position/67716763b93377905e23212c/candidate/67716763b93377905e23212d/update" \
+curl -X PUT "http://localhost:5000/api/position/67805481c8e679a7735bb954/candidate/67805481c8e679a7735bb955/update" \
   -H "Content-Type: multipart/form-data" \
-  -F "name=Emmanuel" \
-  -F "picture=@C:/Users/Simeon/OneDrive/Pictures/Screenshot (27).png"
+  -F "name=Ikponmwosa Decent" \
+  -F "picture=@C:/Users/Simeon/Downloads/IMG-20250110-WA0044.jpg"
 
 
 ###
@@ -30,7 +30,7 @@ curl -X POST http://localhost:5000/api/vote/cast \
 }'
 
 ###
-curl -X GET "http://localhost:5000/api/vote/result"
+curl -X GET "https://speunibenvotingapi.onrender.com/api/vote/result"
 
 ###
 curl -X GET "http://localhost:5000/api/position/all"
@@ -43,10 +43,9 @@ curl -X DELETE "http://localhost:5000/api/position/674563faf381266c4bf6b4cc/dele
 curl -X POST http://localhost:5000/api/vote/cast \
 -H "Content-Type: application/json" \
 -d '{
-  "voterId": "ENG2006435",
+  "voterId": "ENG2304316",
   "votes": [
-    { "position": "President", "candidateId": "6747a23770aed516c5f62b2c" },
-    { "position": "Vice President", "candidateId": "6747a29770aed516c5f62b38" }
+    { "position": "Director of Socials", "candidateId": "678052eec8e679a7735bb949" },
   ]
 }'
 ###
@@ -80,7 +79,7 @@ curl -X POST http://localhost:5000/api/log-admin-action \
 }'
 
 ###
-curl -X POST http://localhost:5000/api/admin/signup \
+curl -X POST http://localhost:5000/api/auth/signup \
 -H "Content-Type: application/json" \
 -d '{
   "email": "chinedusimeon185@gmail.vom",
@@ -137,5 +136,8 @@ POST  http://localhost:5000/generate-passwords
 
 ###
 POST  http://localhost:5000/send-passwords
+
+###
+GET http://localhost:5000/api/vote/all
 
 

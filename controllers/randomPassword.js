@@ -5,6 +5,8 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 
+import fs1 from "fs/promises";
+import pLimit from "p-limit"; // Ensure you install this with npm install p-limit
 const router = express.Router();
 
 // Function to generate a random password
@@ -89,7 +91,7 @@ async function sendPasswordsByEmail(req, res) {
       const mailOptions = {
         from: "chinedusimeon2020@gmail.com",
         to: pair.email,
-        subject: "Your Password",
+        subject: "SPE UNIBEN Election - Your Password",
         html: `
       <div style="
         font-family: 'Montserrat',  sans-serif;
@@ -151,12 +153,87 @@ async function sendPasswordsByEmail(req, res) {
       error: error.message,
     });
   }
+
+
 }
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const sendPasswordsToUsers = async (req, res) => {
+  try {
+    // Load email and password data from the JSON file
+    const emailPasswordData = JSON.parse(
+      await fs1.readFile("email_passwords.json", "utf-8")
+    );
+
+    // Nodemailer configuration
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "chinedusimeon2020@gmail.com",
+        pass: "miseopnfheyyjapz", // Use environment variables or app-specific password
+      },
+    });
+
+    // Utility function for a delay
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Limit concurrency to 10 emails at a time
+    const limit = pLimit(10);
+
+    const emailPromises = emailPasswordData.map(({ email, password }, index) =>
+      limit(async () => {
+        // Introduce delay between emails to avoid rate limits
+        await delay(index * 1000); // Adjust delay as needed (1000ms per email)
+        await transporter.sendMail({
+          from: "chinedusimeon2020@gmail.com",
+          to: email,
+          subject: "Your Account Password",
+          html: `
+          <div style="font-family: 'Montserrat', sans-serif; background-color: #f9f9f9; padding: 20px; text-align: center; color: #333;">
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;500&display=swap');
+            </style>
+            <div style="max-width: 600px; margin: auto; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); overflow: hidden;">
+              <div style="background: #1c80df; color: white; padding: 15px;">
+                <h1 style="margin: 0; font-size: 24px;">Your New Password</h1>
+              </div>
+              <div style="padding: 20px;">
+                <p>Hello,</p>
+                <p>Your account password has been updated. Here is your new password:</p>
+                <p style="font-size: 20px; font-weight: bold; color: #1c80df;">${password}</p>
+                <p>Please keep it secure and do not share it with anyone.</p>
+              </div>
+              <div style="background: #f1f1f1; color: #777; font-size: 12px; padding: 10px;">
+                <p>Need help? Contact support at <a href="mailto:support@example.com" style="color: #1c80df;">support@example.com</a></p>
+              </div>
+            </div>
+          </div>
+          `,
+        });
+        console.log(`Email sent to ${email}`);
+      })
+    );
+
+    // Wait for all emails to be sent
+    await Promise.all(emailPromises);
+
+    res
+      .status(200)
+      .json({ message: "Passwords sent to all users successfully." });
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).json({ error: "Failed to send emails to users." });
+  }
+};
+
 
 // Route to generate passwords and save them
 router.post("/generate-passwords", generateAndSavePasswords);
 
 // Route to send passwords via email
-router.post("/send-passwords", sendPasswordsByEmail);
+router.post("/send-passwords", sendPasswordsToUsers);
 
 export default router;
